@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  color: #242522;
+  background: #F6F3ED;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background-color: #F6F3ED;
+  color: #242522;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@layer components {
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-ink/65;
+  }
+  .nav-link {
+    @apply font-sans text-xs uppercase tracking-[0.16em] text-ink/75 transition duration-200 hover:text-ink;
+  }
+  .button-primary {
+    @apply inline-flex items-center justify-center bg-ink px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-paper transition duration-200 hover:bg-[#383a34] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .button-secondary {
+    @apply inline-flex items-center justify-center border border-ink/30 bg-transparent px-7 py-3.5 text-xs font-semibold uppercase tracking-[0.18em] text-ink transition duration-200 hover:border-ink hover:bg-ink/5;
+  }
+  .field {
+    @apply w-full border border-borderIvory bg-white/70 px-4 py-3 text-sm outline-none transition-all duration-200 placeholder:text-ink/40 focus:border-ink focus:bg-white focus:ring-1 focus:ring-ink;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+

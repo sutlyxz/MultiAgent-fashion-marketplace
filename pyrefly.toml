@@ -1,0 +1,3 @@
+python-interpreter-path = ".venv/Scripts/python.exe"
+search-path = ["backend", "backend/tests"]
+ignore-missing-imports = ["tests.postgres_test_harness"]

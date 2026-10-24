@@ -1,0 +1,11 @@
+pydantic
+python-dotenv
+pytest
+fastapi
+python-jose[cryptography]
+bcrypt
+email-validator
+uvicorn
+SQLAlchemy
+alembic
+psycopg[binary]

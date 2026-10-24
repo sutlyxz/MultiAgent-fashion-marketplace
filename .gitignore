@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+.env
+.venv/
+.coverage
+htmlcov/
+.DS_Store
+.agent_runs/
+
+# Ad-hoc backup files
+*.bak
+*.backup*

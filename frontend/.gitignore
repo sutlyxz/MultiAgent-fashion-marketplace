@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.env
+.vite/
+
+# Ad-hoc backup files
+*.bak
+*.backup*
