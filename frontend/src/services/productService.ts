@@ -8,6 +8,7 @@ import {
   type StockCheckResponse,
 } from "../types/marketplace";
 import { authService } from "./authService";
+import { apiUrl } from "./apiClient";
 
 export const DEFAULT_FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1000&q=85";
@@ -94,7 +95,7 @@ export const productService = {
     }
 
     const queryString = params.toString();
-    const url = `/api/products${queryString ? `?${queryString}` : ""}`;
+    const url = apiUrl(`/api/products${queryString ? `?${queryString}` : ""}`);
 
     const headers: Record<string, string> = {};
     const token = authService.getToken();
@@ -120,7 +121,7 @@ export const productService = {
     const cleanId = productId.trim();
     if (!cleanId) return null;
 
-    const res = await fetch(`/api/products/${encodeURIComponent(cleanId)}`);
+    const res = await fetch(apiUrl(`/api/products/${encodeURIComponent(cleanId)}`));
     if (res.status === 404) {
       return null;
     }
@@ -145,7 +146,7 @@ export const productService = {
       quantity: String(quantity),
     });
 
-    const res = await fetch(`/api/products/check-stock?${params.toString()}`);
+    const res = await fetch(apiUrl(`/api/products/check-stock?${params.toString()}`));
     if (!res.ok) {
       const err = await res.json().catch(() => null);
       throw new Error(err?.detail || `Stock check failed (${res.status})`);
@@ -167,7 +168,7 @@ export const productService = {
       throw new Error("Authentication required. Please sign in as a seller.");
     }
 
-    const res = await fetch("/api/products/seller/me", {
+    const res = await fetch(apiUrl("/api/products/seller/me"), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -189,7 +190,7 @@ export const productService = {
       throw new Error("Authentication required. Please sign in as a seller.");
     }
 
-    const res = await fetch("/api/products", {
+    const res = await fetch(apiUrl("/api/products"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -213,7 +214,7 @@ export const productService = {
       throw new Error("Authentication required. Please sign in as a seller.");
     }
 
-    const res = await fetch(`/api/products/${encodeURIComponent(id)}`, {
+    const res = await fetch(apiUrl(`/api/products/${encodeURIComponent(id)}`), {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -237,7 +238,7 @@ export const productService = {
 
   async listCategories(): Promise<string[]> {
     try {
-      const res = await fetch("/api/products/categories");
+      const res = await fetch(apiUrl("/api/products/categories"));
       if (res.ok) {
         return await res.json();
       }

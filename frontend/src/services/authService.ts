@@ -1,4 +1,5 @@
 import type { MockUser, RegisterInput, UserRole } from "../types/marketplace";
+import { apiUrl } from "./apiClient";
 
 export const TOKEN_STORAGE_KEY = "clothify_access_token";
 export const USER_STORAGE_KEY = "clothify_active_user";
@@ -76,7 +77,7 @@ export const authService = {
       password: password || "",
     };
 
-    const response = await fetch("/api/auth/login", {
+    const response = await fetch(apiUrl("/api/auth/login"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +139,7 @@ export const authService = {
       store_name: userRole === "seller" && storeName?.trim() ? storeName.trim() : null,
     };
 
-    const registerResponse = await fetch("/api/auth/register", {
+    const registerResponse = await fetch(apiUrl("/api/auth/register"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +167,7 @@ export const authService = {
   },
 
   async getMe(token: string): Promise<MockUser | null> {
-    const response = await fetch("/api/auth/me", {
+    const response = await fetch(apiUrl("/api/auth/me"), {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -208,7 +209,7 @@ export const authService = {
       payload.store_name = updates.storeName.trim();
     }
 
-    const response = await fetch("/api/auth/me", {
+    const response = await fetch(apiUrl("/api/auth/me"), {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -256,7 +257,7 @@ export const authService = {
       throw new Error("Store name must be at least 2 characters.");
     }
 
-    const response = await fetch("/api/seller/become-seller", {
+    const response = await fetch(apiUrl("/api/seller/become-seller"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

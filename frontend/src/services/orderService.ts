@@ -1,5 +1,6 @@
 import type { Order, OrderItem, OrderItemRequestInput } from "../types/marketplace";
 import { authService } from "./authService";
+import { apiUrl } from "./apiClient";
 
 function mapApiOrder(data: any): Order {
   const items: OrderItem[] = Array.isArray(data.items)
@@ -41,7 +42,7 @@ export const orderService = {
       throw new Error("Order must contain at least one item.");
     }
 
-    const res = await fetch("/api/orders/create", {
+    const res = await fetch(apiUrl("/api/orders/create"), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +66,7 @@ export const orderService = {
       return [];
     }
 
-    const res = await fetch("/api/orders/my-orders", {
+    const res = await fetch(apiUrl("/api/orders/my-orders"), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -90,7 +91,7 @@ export const orderService = {
       throw new Error("Authentication required. Please sign in to view this order.");
     }
 
-    const res = await fetch(`/api/orders/${encodeURIComponent(cleanId)}`, {
+    const res = await fetch(apiUrl(`/api/orders/${encodeURIComponent(cleanId)}`), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -120,7 +121,7 @@ export const orderService = {
       throw new Error("Authentication required. Please sign in to cancel this order.");
     }
 
-    const res = await fetch(`/api/orders/${encodeURIComponent(cleanId)}/cancel`, {
+    const res = await fetch(apiUrl(`/api/orders/${encodeURIComponent(cleanId)}/cancel`), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -155,7 +156,7 @@ export const orderService = {
       throw new Error("Authentication required. Please sign in to pay for this order.");
     }
 
-    const res = await fetch(`/api/orders/${encodeURIComponent(cleanId)}/simulate-payment`, {
+    const res = await fetch(apiUrl(`/api/orders/${encodeURIComponent(cleanId)}/simulate-payment`), {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -188,7 +189,7 @@ export const orderService = {
       throw new Error("Authentication required. Please sign in as a seller.");
     }
 
-    const res = await fetch("/api/seller/orders", {
+    const res = await fetch(apiUrl("/api/seller/orders"), {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -216,7 +217,7 @@ export const orderService = {
       throw new Error("Authentication required. Please sign in as a seller.");
     }
 
-    const res = await fetch(`/api/seller/orders/${encodeURIComponent(orderId)}/shipment`, {
+    const res = await fetch(apiUrl(`/api/seller/orders/${encodeURIComponent(orderId)}/shipment`), {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
