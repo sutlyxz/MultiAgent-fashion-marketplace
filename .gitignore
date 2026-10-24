@@ -12,3 +12,7 @@ htmlcov/
 # Ad-hoc backup files
 *.bak
 *.backup*
+
+# Local database backups
+backups/
+*.dump
